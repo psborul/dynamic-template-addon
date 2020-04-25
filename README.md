@@ -1,24 +1,19 @@
-# template-addon
+# dynamic-template-addon
 
-## Project setup
-```
-npm install
-```
+> Vue.js, Vuetify, Storybook
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Build Setup
 
-### Compiles and minifies for production
-```
-npm run build
-```
+``` bash
+# install dependencies
+$ npm run install
 
-### Lints and fixes files
-```
-npm run lint
-```
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# serve Storybook with hot reload at localhost:6006
+$ npm run storybook
+```
+## Tutorial
+
+> https://medium.com/@psborul/storybook-and-custom-dynamic-template-addon-creation-with-vue-and-vuetify-91eaed7f367f

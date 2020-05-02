@@ -1,16 +1,18 @@
 import addons, { makeDecorator } from '@storybook/addons';
 import beautify from 'js-beautify';
 import { EVENT_ID } from './register';
+import getMarkupTemplate from "../utils/getMarkupTemplate.js";
+import toKebabCase from "../utils/toKebabCase.js";
 
 const withTemplate = makeDecorator({
   name: 'withTemplate',
   wrapper: (storyFn, context) => {
     const story = storyFn(context);
-    const options = story.options.STORYBOOK_WRAPS.options;
+    const options = story?.options?.STORYBOOK_WRAPS?.options;
 
     let { template, components } = options || null;
 
-    const storyValues = story.options.STORYBOOK_VALUES;
+    const storyValues = story?.options?.STORYBOOK_VALUES;
     const componentName = Object.keys(components)[0];
     const componentInstance = components[componentName];
  
@@ -18,10 +20,9 @@ const withTemplate = makeDecorator({
       const defaultValue = componentInstance.props[key].default;
       const value = storyValues[key];
       const isDefaultValue = defaultValue === value;
-      const isDynamicValue = typeof value === 'boolean' || typeof value === 'object';
-      const result = isDefaultValue ? '' : `${isDynamicValue ? ':' : ''}${key}="${value}"`;
-
-      const re = new RegExp(`:${key}="${key}"`, 'gi');
+      const kebabCaseKey = toKebabCase(key);
+      const result = isDefaultValue ? '' : getMarkupTemplate(kebabCaseKey, value);
+      const re = new RegExp(`:${kebabCaseKey}="${key}"`, 'gi');
       template = template.replace(re, result);
     }
 
